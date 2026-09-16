@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflexo de Nós — Curta-metragem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #101013;
+    --bg-alt: #17171b;
+    --bg-raised: #1c1c21;
+    --line: #2b2b31;
+    --ink: #eae6df;
+    --ink-dim: #9b968f;
+    --accent: #85a3ac;
+    --accent-dim: #5e747b;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Work Sans', -apple-system, sans-serif;
+  }
+  :root:not([data-theme="light"]) { color-scheme: dark; }
+  :root[data-theme="light"] {
+    --bg: #f3f1ec;
+    --bg-alt: #e9e6df;
+    --bg-raised: #ffffff;
+    --line: #d8d4cb;
+    --ink: #1a1a1a;
+    --ink-dim: #6b6660;
+    --accent: #4f6b73;
+    --accent-dim: #37484d;
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+  a { color: inherit; }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; max-width: 960px; margin: 0 auto;
+  }
+  .nav-title {
+    font-family: var(--serif); font-size: 1rem; font-weight: 600;
+    letter-spacing: 0.02em; white-space: nowrap;
+  }
+  .nav-links {
+    display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none;
+    font-size: 0.85rem; color: var(--ink-dim);
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { text-decoration: none; white-space: nowrap; transition: color .15s; }
+  .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
+
+  .theme-toggle {
+    background: none; border: 1px solid var(--line); color: var(--ink-dim);
+    border-radius: 100px; padding: 5px 12px; font-size: 0.75rem; cursor: pointer;
+    font-family: var(--sans);
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+  header.hero {
+    padding: 100px 24px 80px;
+    max-width: 960px; margin: 0 auto;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-eyebrow {
+    color: var(--accent); font-size: 0.9rem; margin-bottom: 18px;
+  }
+  h1.title {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    font-weight: 500;
+    line-height: 1.02;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+  .hero-sub {
+    font-size: 1.15rem; color: var(--ink-dim); max-width: 40ch; margin: 0 0 28px;
+  }
+  .hero-credit {
+    font-size: 0.9rem; color: var(--ink-dim); border-left: 2px solid var(--accent-dim);
+    padding-left: 14px; max-width: 46ch;
+  }
+
+  section { padding: 72px 24px; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  .section-inner { max-width: 960px; margin: 0 auto; }
+  h2.section-title {
+    font-family: var(--serif); font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 500; margin: 0 0 14px;
+  }
+  .section-intro {
+    color: var(--ink-dim); max-width: 60ch; margin: 0 0 36px; font-size: 1rem;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 680px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--bg-raised); border: 1px solid var(--line);
+    border-radius: 4px; padding: 24px;
+  }
+  .card h3 { font-family: var(--serif); font-weight: 500; font-size: 1.1rem; margin: 0 0 8px; }
+  .card p { color: var(--ink-dim); font-size: 0.92rem; margin: 0; }
+
+  .team-member { display: flex; gap: 14px; align-items: flex-start; }
+  .team-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--bg-raised); border: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+
+  .timeline { border-left: 1px solid var(--line); margin-left: 6px; }
+  .timeline-item { position: relative; padding: 0 0 32px 28px; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -5px; top: 4px;
+    width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+  }
+  .timeline-item h3 { font-family: var(--serif); font-weight: 500; font-size: 1.05rem; margin: 0 0 6px; }
+  .timeline-item p { color: var(--ink-dim); font-size: 0.92rem; margin: 0; }
+
+  .media-placeholder {
+    aspect-ratio: 16/9; background: var(--bg-raised); border: 1px dashed var(--line);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-dim); font-size: 0.85rem; border-radius: 4px; text-align: center; padding: 20px;
+  }
+  .media-placeholder.poster { aspect-ratio: 2/3; }
+
+  .accessibility-list, .accounting-list { list-style: none; padding: 0; margin: 0; }
+  .accessibility-list li, .accounting-list li {
+    padding: 16px 0; border-bottom: 1px solid var(--line);
+    display: flex; gap: 16px; align-items: baseline;
+  }
+  .accessibility-list li:last-child, .accounting-list li:last-child { border-bottom: none; }
+  .accessibility-list .num, .accounting-list .num {
+    color: var(--accent); font-family: var(--serif); font-size: 1.05rem; flex-shrink: 0; width: 1.6em;
+  }
+
+  .doc-list a {
+    display: block; padding: 12px 0; border-bottom: 1px solid var(--line);
+    text-decoration: none; font-size: 0.95rem;
+  }
+  .doc-list a:hover { color: var(--accent); }
+  .doc-list a:last-child { border-bottom: none; }
+
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  }
+  @media (max-width: 680px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+  .gallery-item {
+    aspect-ratio: 1; background: var(--bg-raised); border: 1px dashed var(--line);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-dim); font-size: 0.75rem; border-radius: 3px; text-align: center; padding: 8px;
+  }
+
+  footer {
+    padding: 40px 24px; text-align: center; color: var(--ink-dim); font-size: 0.85rem;
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  a.button {
+    display: inline-block; background: var(--accent); color: var(--bg);
+    padding: 10px 20px; border-radius: 3px; text-decoration: none;
+    font-size: 0.9rem; font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-title">Reflexo de Nós</div>
+    <div class="nav-links">
+      <a href="#projeto">O projeto</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#diario">Diário de produção</a>
+      <a href="#acessibilidade">Acessibilidade</a>
+      <a href="#filme">Filme</a>
+      <a href="#prestacao">Prestação de contas</a>
+      <a href="#resultados">Resultados</a>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">modo claro</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">Curta-metragem de ficção</div>
+  <h1 class="title">Reflexo<br>de Nós</h1>
+  <p class="hero-sub">Um curta-metragem sobre o que vemos de nós mesmos quando olhamos para o outro.</p>
+  <p class="hero-credit">Projeto realizado com recursos do 16º Edital Ceará de Cinema e Audiovisual.</p>
+</header>
+
+<section id="projeto">
+  <div class="section-inner">
+    <h2 class="section-title">O projeto</h2>
+    <div class="card" style="margin-bottom:24px;">
+      <h3>Objeto do projeto</h3>
+      <p>Produção e finalização do curta-metragem de ficção "Reflexo de Nós", com duração de até 20 minutos, a ser realizado na capital Fortaleza, Ceará. O projeto propõe elaborar etapas de produção e pós-produção do filme, incluindo filmagem, montagem, edição e finalização de imagem e som, criação de recursos de acessibilidade e preparação dos materiais finais para o fomento e circulação da obra. Além disso, o resultado final contará com uma sessão especial conjunta com o elenco e equipe para compartilhar o processo criativo do filme e discutir as problemáticas sociais que atravessam a obra. O evento acontecerá em espaço acessível, com tradução em Libras, e será destinado a estudantes do campo das artes, artistas locais, profissionais do audiovisual e entusiastas da sétima arte.</p>
+    </div>
+    <div class="card">
+      <h3>Sinopse</h3>
+      <p>Ícaro é um jovem bailarino que trabalha em um escritório de contabilidade enquanto cursa dança. Entre trabalho, faculdade e ensaios, sonha com uma vaga na Companhia Regional de Dança. Exausto, recebe da chefe uma proposta de auxílio-graduação para cursar Contabilidade ou Administração. Para isso, precisa abandonar a dança e seguir um caminho profissional considerado mais seguro. Dividido entre estabilidade financeira e realização artística, Ícaro adia sua decisão. Ao lado dos amigos Laura e Ravi, encontra afeto e apoio para atravessar o cotidiano. Quando surge a oportunidade de estágio, decide se inscrever, apesar das incertezas. Enquanto a pressão aumenta, o trabalho invade seus limites e reduz o tempo para aquilo que ama. Diante do próprio reflexo, Ícaro chega ao limite e rompe com a imagem que vinha sustentando. Entre permanecer e partir, encara suas escolhas e dá um primeiro passo em direção ao que reconhece como seu.</p>
+    </div>
+  </div>
+</section>
+
+<section id="equipe">
+  <div class="section-inner">
+    <h2 class="section-title">Equipe</h2>
+    <p class="section-intro">Quem está por trás de Reflexo de Nós. A equipe será divulgada assim que o projeto for aprovado no edital.</p>
+  </div>
+</section>
+
+<section id="diario">
+  <div class="section-inner">
+    <h2 class="section-title">Diário de produção</h2>
+    <p class="section-intro">O passo a passo da realização — pré-produção, preparação de elenco, filmagens, pós-produção e finalização — será registrado aqui a partir do início da execução do projeto.</p>
+  </div>
+</section>
+
+<section id="acessibilidade">
+  <div class="section-inner">
+    <h2 class="section-title">Acessibilidade</h2>
+    <p class="section-intro">O projeto prevê legendas descritivas, audiodescrição e tradução em Libras para o filme e para a sessão especial de lançamento, em espaço acessível. Os detalhes de cada recurso serão publicados aqui conforme forem produzidos.</p>
+  </div>
+</section>
+
+<section id="filme">
+  <div class="section-inner">
+    <h2 class="section-title">Filme</h2>
+    <p class="section-intro">O trailer e o cartaz oficial serão publicados aqui assim que estiverem prontos, após a produção do filme.</p>
+  </div>
+</section>
+
+<section id="prestacao">
+  <div class="section-inner">
+    <h2 class="section-title">Prestação de contas</h2>
+    <p class="section-intro">Assim que o projeto for aprovado no 16º Edital Ceará de Cinema e Audiovisual, esta seção trará o valor recebido, o plano de ação e a execução financeira, com os comprovantes exigidos pelo edital.</p>
+  </div>
+</section>
+
+<section id="resultados">
+  <div class="section-inner">
+    <h2 class="section-title">Resultados</h2>
+    <p class="section-intro">Trailer, cartaz, ações de divulgação, circulação em festivais e registros de bastidores serão publicados aqui à medida que o filme for produzido e lançado.</p>
+  </div>
+</section>
+
+<footer>
+  Reflexo de Nós — Curta-metragem de ficção · Projeto realizado com recursos do 16º Edital Ceará de Cinema e Audiovisual
+</footer>
+
+<script>
+  function toggleTheme() {
+    const root = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    const isLight = root.getAttribute('data-theme') === 'light';
+    if (isLight) {
+      root.removeAttribute('data-theme');
+      btn.textContent = 'modo claro';
+      try { localStorage.setItem('theme', 'dark'); } catch(e) {}
+    } else {
+      root.setAttribute('data-theme', 'light');
+      btn.textContent = 'modo escuro';
+      try { localStorage.setItem('theme', 'light'); } catch(e) {}
+    }
+  }
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.getElementById('themeBtn').textContent = 'modo escuro';
+    }
+  } catch(e) {}
+</script>
+
+</body>
+</html>
